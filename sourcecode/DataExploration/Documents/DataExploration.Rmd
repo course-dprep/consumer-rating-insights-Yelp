@@ -1,0 +1,51 @@
+---
+title: "Data Exploration"
+output:
+  pdf_document: default
+  html_document: default
+name: "Team 4"
+params:
+  suppress_messages: TRUE
+---
+
+```{r setup, include=FALSE}
+# Source necessary scripts
+source("scripts/install_and_import.R")  
+source("scripts/import_data.R")          
+source("scripts/analyze_data.R")          
+source("scripts/visualize.R")  
+
+# Load your data
+data_business <- import_data()  # Call the import function 
+
+# Analyze data
+analysis_results <- analyze_data(data_business)
+
+# Display star summary
+knitr::kable(analysis_results$star_summary, caption = "Summary of Star Ratings")
+
+# Display review count summary
+knitr::kable(analysis_results$review_summary, caption = "Summary of Review Counts");
+
+# Display top true attributes
+knitr::kable(analysis_results$top_true_attributes, 
+             caption = "Count of Top 30 Attributes (True)", 
+             format = "markdown");
+
+# Display top false attributes
+knitr::kable(analysis_results$top_false_attributes, 
+             caption = "Count of Top 30 Attributes (False)", 
+             format = "markdown");
+
+# Create visualizations
+visualizations <- create_visualizations(data_business)
+
+# Plot for star ratings
+print(visualizations$star_plot)
+
+# Plot for state distribution
+print(visualizations$state_plot)
+
+# Plot for category distribution
+print(visualizations$category_plot)
+``` 
