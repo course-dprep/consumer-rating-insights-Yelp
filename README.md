@@ -90,7 +90,6 @@ knitr
 readr
 rmarkdown
 tidyr
-
 ```
 The packages will automatically be installed when running the makefile of the project, but if wanted the packages can also be installed using the ```install.packages``` command.
 
