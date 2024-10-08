@@ -24,7 +24,7 @@ library(googledrive)
 drive_deauth()
 
 # Folder ID from your Google Drive link
-folder_id <- "1ioJVCsr5pJ5tAa2dPJ9yxIvL6rYmDSl1"
+folder_id <- "1ioJVCsr5pJ5tAa2dPJ9yxIvL6rYmDSl1"pleas
 
 # List all files in the folder
 files_in_folder <- drive_ls(as_id(folder_id))
