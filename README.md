@@ -77,6 +77,9 @@ Please follow the installation guides on [Tilburg Science Hub](http://tilburgsci
 - R and RStudio ([installation guide](https://tilburgsciencehub.com/topics/computer-setup/software-installation/rstudio/r/))
 - Make ([installation guide](https://tilburgsciencehub.com/topics/automation/automation-tools/makefiles/make/))
 
+Additionally, the following software needs to be downloaded: 
+- Pandoc ([installation guide](https://pandoc.org/installing.html))
+
 To run this project, the following R packages are mandatory:
 
 ```
