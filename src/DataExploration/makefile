@@ -1,7 +1,7 @@
 DATA = ../../data
 output = ../../gen/output
 
-all: $(DATA)/business_data.csv $(DATA)/cleaned_data_for_exploration.csv $(OUTPUT)/star_rating_summary.pdf $(OUTPUT)/data_visualization_graphs.pdf
+all: $(OUTPUT)/star_rating_summary.pdf $(OUTPUT)/data_visualization_graphs.pdf $(OUTPUT)/top_20_categories.pdf
 
 install:
 	R --vanilla < Install_Packages.R
@@ -21,5 +21,5 @@ $(OUTPUT)/star_rating_summary.pdf: $(DATA)/cleaned_data_for_exploration.csv Star
 $(OUTPUT)/data_visualization_graphs.pdf: $(DATA)/cleaned_data_for_exploration.csv Visualization.R
 	R --vanilla < Visualization.R
 
-$(OUTPUT)/top_20_categories.xlsx: $(DATA)/cleaned_data_for_exploration.csv Visualization.R
+$(OUTPUT)/top_20_categories.pdf: $(DATA)/cleaned_data_for_exploration.csv Visualization.R
 	R --vanilla < Visualization.R
