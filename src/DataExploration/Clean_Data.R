@@ -54,5 +54,5 @@ for (category in categories) {
 }
 
 ## OUTPUT
-write.csv(cleaned_data, '../../data/cleaned_data_for_exploration.csv', row.names = FALSE)
+write_csv(cleaned_data, '../../data/cleaned_data_for_exploration.csv')
 

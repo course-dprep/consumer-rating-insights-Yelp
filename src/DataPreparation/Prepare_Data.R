@@ -53,7 +53,7 @@ prepared_data <- cleaned_data
 frequency_table_categories = create_frequency_table(prepared_data)
 
 ## OUTPUT
-write.csv(prepared_data, '../../data/prepared_data.csv', row.names = FALSE)
+write_csv(prepared_data, '../../data/prepared_data.csv')
 
 pdf('../../gen/temp/frequency_table_categories.pdf')
 grid.table(frequency_table_categories)

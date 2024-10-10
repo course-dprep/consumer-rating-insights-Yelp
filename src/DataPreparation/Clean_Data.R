@@ -33,4 +33,4 @@ clean_data <- function(data) {
 cleaned_data <- clean_data(business_data)
 
 ## OUTPUT
-write.csv(cleaned_data, '../../data/cleaned_data_for_preperation.csv', row.names = FALSE)
+write_csv(cleaned_data, '../../data/cleaned_data_for_preperation.csv')
