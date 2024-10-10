@@ -55,10 +55,10 @@ visualization <- create_visualizations(cleaned_data)
 top_20_categories <- visualization$category_counts %>% top_n(20, n) 
 
 ## OUTPUT
-pdf("../../gen/output/data_visualization_graphs.pdf")
+pdf("../../gen/exploration/data_visualization_graphs.pdf")
 visualization
 dev.off()
 
-pdf('../../gen/output/top_20_categories.pdf')
+pdf('../../gen/exploration/top_20_categories.pdf')
 grid.table(top_20_categories)
 dev.off()

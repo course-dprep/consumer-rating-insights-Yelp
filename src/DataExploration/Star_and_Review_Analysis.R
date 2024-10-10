@@ -53,7 +53,7 @@ star_summary$Value <- round(star_summary$Value, 2)
 review_summary <- analyzed_data$review_summary
 
 ## OUTPUT
-pdf('../../gen/output/star_and_review_summary.pdf')
+pdf('../../gen/exploration/star_and_review_summary.pdf')
 grid.table(star_summary)
 grid.newpage()
 grid.table(review_summary) 
