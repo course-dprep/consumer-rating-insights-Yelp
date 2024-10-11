@@ -44,7 +44,7 @@ analyze_data <- function(data) {
               data = data))
 }
 
-# Running the data throught the analyze_data function and stoingen the star_summary and review_summary
+# Running the data through the analyze_data function and stoingen the star_summary and review_summary
 analyzed_data <- analyze_data(cleaned_data)
 star_summary <- analyzed_data$star_summary
 setDT(star_summary)
