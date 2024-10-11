@@ -1,7 +1,7 @@
 ---
-title: "Final Report"
+title: "Yelp - What influences consumer ratings?"
 author: "Team 4"
-date: "2024-10-08"
+date: "13-10-2024"
 output:
   pdf_document: default
   html_document:
@@ -20,7 +20,6 @@ library(effectsize)
 library(emmeans)
 ```
 
-# Yelp - What influences consumer ratings?
 This research examines the influence of specific business categories on the consumer rating of businesses. We created a model to predict the relative impact of specific business categories that are listed on Yelp on consumer ratings on Yelp of these business. This report consist of the following:
 
 1. Research Motivation & Research Question
