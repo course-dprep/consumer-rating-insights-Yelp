@@ -20,19 +20,80 @@ library(effectsize)
 library(emmeans)
 ```
 
+# Yelp - What influences consumer ratings?
+This research examines the influence of specific business categories on the consumer rating of businesses. We created a model to predict the relative impact of specific business categories that are listed on Yelp on consumer ratings on Yelp of these business. This report consist of the following:
+
+1. Research Motivation & Research Question
+2. Data
+3. Research Method
+4. Analysis & Results
+5. Relevance
+6. Conclusion
+
+## 1. Research Motivation
+In today's digital landscape, consumer ratings and online reviews are of importance in shaping expectations and driving purchase decisions. As people increasingly rely on online reviews, understanding the business categories that influence positive and negative consumer ratings has become vital for businesses navigating the competitive digital marketplace. By identifying these categories, businesses can refine their offerings to better align with consumer preferences and improve their online reputation. This research leverages a comprehensive open dataset from Yelp, which serves as a major platform where consumers can share experiences and evaluate businesses. With its strong presence across various recreational industries (including restaurants, retail, and services). Yelp has established itself as a trusted source for review-based feedback.
+
+The Yelp dataset provides a wealth of information on over 150,000 businesses across the United States, capturing details such as business name, location, category, attributes, and consumer ratings, used as variables in this research. By analyzing this extensive dataset, we aim to extract valuable insights into which business categories drive consumer ratings. These insights can empower business managers to adopt a data-driven approach, going beyond anecdotal evidence and moving toward strategic, evidence-based decision-making. This shift aligns with the growing trend of data-driven marketing, where decisions are rooted in robust analysis rather than intuition, further underscoring the importance of data analytics in today’s business environment.
+
+Several academic studies support the notion that data-driven decision-making can significantly enhance business performance. For instance, McAfee et al. (2012) highlight how data-driven approaches provide businesses with a competitive advantage by facilitating improved decision-making processes. Similarly, Akter and Wamba (2016) emphasize that data analytics can enhance operational efficiency and customer satisfaction in various service industries. Furthermore, Luca (2016) discusses the critical role of online reviews in consumer decision-making and how they can influence a business's financial performance. These studies underscore the need for a nuanced understanding of consumer ratings, and our research aims to contribute to this understanding by focusing on business categories as primary drivers of consumer feedback.
+
+### Research Question
+*Which business categories drive higher consumer ratings on Yelp in the United States?*
+
+This study aims to identify which business categories drive higher consumer ratings on Yelp in the United States. By examining these categories, the research provides critical insights into consumer expectations, allowing businesses to prioritize specific attributes that resonate with their target audience. For example, restaurants might focus on service and ambiance, while fitness centers may emphasize convenience and accessibility. 
+
+Furthermore, this study supports a data-driven approach to business strategy, leveraging Yelp reviews as a valuable source of information. In an increasingly digital market, understanding category-specific drivers of satisfaction enables businesses to strategically enhance their offerings and improve their online reputations.
+
+## 2. Data
+The data incorporated in this research is an open dataset provided by Yelp. This dataset includes various business variables, such as names, opening hours, addresses, star reviews, and attributes, of more than 150,000 recreational businesses in the United States of America. These businesses have a extremely broad range of categories, from massage saloons to casinos, and from cheese tastings to tattoo shops. This widespread of types of business allows us to analyse the influence of specific business attributes on consumer ratings on a very broad level. This means that our findings are implementable by a broad range of businesses and industries.
+
+The table below shows the variables within the cleaned and prepared dataset including a brief description of each of the variables (the cleaning and preparation process can be found in the src/DataPreperation folder):
+
+|Variable                        |Description                                                                                     |
+|--------------------------------|------------------------------------------------------------------------------------------------|
+|business_id                      |The unique Yelp id for each registered business                                               |
+|name                        |The name of the business                                                                            |
+|is_open                       |A dummy variable that indicates if the business is permanently closed, 0 implies permanently closed and 1 implies open for business           |
+|address                     |The address of the business                                                                        |
+|postal_code                   |The postal code of the business                                                                 |
+|state                       |The American stat the business is located in                                                      |
+|categories                   |A list of Yelp business categories the business is classified as                                  |
+|review_count               |The number of Yelp reviews the business has                                                       |
+|attributes                    |A list of Yelp business attributes and whether the business has this attributes or not        |   
+
+In order to ensure research validity, we decided to only include business that are open for business (is_open = 1) and with at least 50 reviews. This is because businesses that are permanently closed may bias the research findings and the rating of business with less than 50 reviews might not be reliable.
+
+To properly analyse the research question, we split up the category variable into ten dummy variables indicating whether a business is categorized in this category (1) or not (0). After extensive exploration of the categories regarding frequency of appearance and analysability, we created dummy variables based on the following categories:
+
+- Restaurants
+- Shopping
+- Home Service
+- Beauty & Spas
+- Health & Medical
+- Local Service
+- Automotive
+- Active Life
+- Hotels & Travel
+- Arts & Entertainment
+
+## 3. Research Method
+We are going to analyse the influence of specific business categories on consumer ratings on Yelp. The dependent variable will be the consumer rating of business measured in stars. The ten created dummy variables of the categories will serve as our independent variable. Then we will design our ANOVA model by regressing the dependent variable 'stars' on all these previously created category dummy variables to find the relative impact of each category on the consumer ratings.
+
 ```{r input, include = FALSE}
 prepared_data <- read_csv('../../data/prepared_data.csv')
 setDT(prepared_data)
 
 ```
+## 4. Analysis & Results
 
-# ANOVA Analysis
-Below the final analysis is conducted. We regress the star rating on the ten seperated category dummy variables, using an ANOVA regression. The results of this ANOVA regression can be found below:
+### Analysis
+First, we perform the ANOVA analysis. We regress the star rating on the ten generated category dummy variables. The results of this ANOVA regression can be found below:
 
 ```{r analysis, echo = FALSE}
 analysis_aov <- aov(stars ~ dummy_Restaurants + dummy_Shopping + `dummy_Home Service` + `dummy_Beauty & Spas` + `dummy_Health & Medical` + `dummy_Local Service` + dummy_Automotive + `dummy_Active Life` + `dummy_Hotels & Travel` + `dummy_Arts & Entertainment` , data = prepared_data)
 summary(analysis_aov)
 ```
+
 These results above imply that businesses within some categories do indeed show significantly different star ratings than businesses that are not classified in that category. This is true for the following categories:
 - Restaurants
 - Home Service
@@ -43,11 +104,12 @@ These results above imply that businesses within some categories do indeed show 
 - Hotels & Travel
 - Arts & Entertainment
 
-These results, however, do not yet show the direction and magnitude of the findings. In order to find the magnitude of the results, we perform a partial eta-squared analysis. The following resulsts are obtained:
+These results, however, do not yet show the direction and magnitude of the findings. In order to find the magnitude of the results, we perform a partial eta-squared analysis. The following results are obtained:
 
 ```{r, echo=FALSE}
 eta_squared(analysis_aov, ci=0.95, partial=TRUE)
 ```
+
 The partial eta-squared results show a limit magnitude for all effects. The business category that show to have the highest difference in star rating are Automotive and Home & Travel. However, since these partial eta-squared are only 0.02, these effects are relatively small. The magnitude of the effects of the other business categories are so small, that these effects are negligible.  
 
 In order to find the actual effects of the business categories we compute a multiple comparisons analysis. Since we already determined that only the Automotive and Home & Travel category have non-negligible results, we will focus on these categories. These are the results of the multiple comparisons analysis for these two business categories:
@@ -61,12 +123,12 @@ automotive = emmeans(lm, pairwise ~ `dummy_Automotive`, adjust = 'bonferroni')
 print(hotels_travel)
 print(automotive)
 ```
+
 These results imply that businesses within the category of Hotels & Travel have an average star rating of 3.10, which is 0.42 star lower than the average star rating of business that are not within this category (3.52).
 
 For the automotive category, the result are similar. The average star rating within this category is 3.05, while the average star rating of businesses not in this category is 3.57, this is a difference of 0.52.
 
-
-# Visualization
+### Visualization
 To visualize this result, we created two boxplots that show for each of these business categories, Hotels & Travel and Automotive, the average star rating of businesses within the category versus business outside of the category:
 ```{r, echo=FALSE}
 ggplot(prepared_data, aes(x = as.factor(`dummy_Hotels & Travel`), y = stars)) +
@@ -82,5 +144,8 @@ ggplot(prepared_data, aes(x = as.factor(`dummy_Automotive`), y = stars)) +
 
 The boxplots show that there is a significant lower average star rating for businesses in the Hotels & Travel and the Automotive category. 
 
-# Conclusions
-Concluding our analysis, we found a significant decrease in average rating for business that are categorized as Hotels & Travel and Automotive. This could serve as a interesting insights for business owners withing these business field. They can use these results to focus more on consumer satisfaction within their business, since they are prone to lower consumer ratings. 
+## 5. Relevance
+The findings of this research have several important implications for marketing strategies. First of all it could enhance customer experience by identifying key drivers of high ratings. Businesses could focus on working towards being part of certain categories that are found to have a high effect on consumer ratings, which will allow for more targeted improvements rather than broad inefficient changes. The insights of this research could also strengthen a company's branding and communication strategy. If specific categories are found to be significantly important for higher consumer ratings, businesses can highlight being part of these categories in their promotional material to attract more consumers.
+
+## 6. Conclusion
+Concluding our analysis, we found a significant decrease in average rating for business that are categorized as Hotels & Travel and Automotive. This could serve as a interesting insights for business owners withing these business field. They can use these results to focus more on consumer satisfaction within their business, since they are prone to lower consumer ratings. For the other eight business categories analyzed, the vast majority of categories also showed a significant effect, how ever the magnitude of these effects are minimum. Returning to the initial research question, we can conclude that for most business categories there is no clear higher rating within the United States. However, business within the business categories Automotive and Hotels & Travel should spend more attention on consumer satisfaction since their average star ratings are significanly lower than those of other business categories.
