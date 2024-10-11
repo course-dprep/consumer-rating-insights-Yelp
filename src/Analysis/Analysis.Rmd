@@ -130,6 +130,7 @@ For the automotive category, the result are similar. The average star rating wit
 
 ### Visualization
 To visualize this result, we created two boxplots that show for each of these business categories, Hotels & Travel and Automotive, the average star rating of businesses within the category versus business outside of the category:
+
 ```{r, echo=FALSE}
 ggplot(prepared_data, aes(x = as.factor(`dummy_Hotels & Travel`), y = stars)) +
   geom_boxplot(fill = "pink") + 
