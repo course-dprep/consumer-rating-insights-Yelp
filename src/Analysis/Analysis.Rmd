@@ -83,6 +83,7 @@ prepared_data <- read_csv('../../data/prepared_data.csv')
 setDT(prepared_data)
 
 ```
+
 ## 4. Analysis & Results
 
 ### Analysis
@@ -90,7 +91,8 @@ First, we perform the ANOVA analysis. We regress the star rating on the ten gene
 
 ```{r analysis, echo = FALSE}
 analysis_aov <- aov(stars ~ dummy_Restaurants + dummy_Shopping + `dummy_Home Service` + `dummy_Beauty & Spas` + `dummy_Health & Medical` + `dummy_Local Service` + dummy_Automotive + `dummy_Active Life` + `dummy_Hotels & Travel` + `dummy_Arts & Entertainment` , data = prepared_data)
-summary(analysis_aov)
+tidy_table = tidy(analysis_aov)
+flextable(tidy_table)
 ```
 
 These results above imply that businesses within some categories do indeed show significantly different star ratings than businesses that are not classified in that category. This is true for the following categories: Restaurants, Home Service, Beauty & Spas, Health & Medical, Automotive, Active Life, Hotels & Travel and Arts & Entertainment.
@@ -98,7 +100,8 @@ These results above imply that businesses within some categories do indeed show 
 These results, however, do not yet show the direction and magnitude of the findings. In order to find the magnitude of the results, we perform a partial eta-squared analysis. The following results are obtained:
 
 ```{r, echo=FALSE}
-eta_squared(analysis_aov, ci=0.95, partial=TRUE)
+eta_squared = eta_squared(analysis_aov, ci=0.95, partial=TRUE)
+flextable(eta_squared)
 ```
 
 The partial eta-squared results show a limited magnitude for all effects. The business category that show to have the highest difference in star rating are Automotive and Home & Travel. However, since these partial eta-squared are only 0.02, these effects are relatively small. The magnitude of the effects of the other business categories are so small, that these effects are negligible.  
@@ -111,8 +114,11 @@ lm <- lm(stars ~ `dummy_Hotels & Travel` * `dummy_Automotive` , data = prepared_
 hotels_travel = emmeans(lm, pairwise ~ `dummy_Hotels & Travel`, adjust = 'bonferroni')
 automotive = emmeans(lm, pairwise ~ `dummy_Automotive`, adjust = 'bonferroni')
 
-print(hotels_travel)
-print(automotive)
+hotels_travel = as.data.frame(hotels_travel)
+flextable(hotels_travel)
+
+automotive = as.data.frame(automotive)
+flextable(automotive)
 ```
 The results imply that businesses within the category of Hotels & Travel have an average star rating of 3.10, which is 0.42 star lower than the average star rating of business that are not within this category (3.52).
 
