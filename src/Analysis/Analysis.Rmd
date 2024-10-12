@@ -1,5 +1,5 @@
 ---
-title: "Yelp - What influences consumer ratings?"
+title: "**Yelp - What influences consumer ratings?**"
 author: "Team 4"
 date: "13-10-2024"
 output:
