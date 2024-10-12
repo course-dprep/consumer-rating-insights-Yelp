@@ -20,7 +20,7 @@ library(effectsize)
 library(emmeans)
 ```
 
-This research examines the influence of specific business categories on the consumer rating of businesses. We created a model to predict the relative impact of specific business categories that are listed on Yelp on consumer ratings on Yelp of these business. This report consist of the following:
+This research examines the influence of specific business categories on the consumer rating of businesses. We created a model to predict the relative impact of specific business categories that are listed on Yelp on consumer ratings on Yelp of these business. This report consist of the following content:
 
 1. Research Motivation & Research Question
 2. Data
@@ -76,7 +76,7 @@ To properly analyse the research question, we split up the category variable int
 - Arts & Entertainment
 
 ## 3. Research Method
-We are going to analyse the influence of specific business categories on consumer ratings on Yelp. The dependent variable will be the consumer rating of business measured in stars. The ten created dummy variables of the categories will serve as our independent variables. We will design our ANOVA model by regressing the dependent variable 'stars' on all these previously created category dummy variables to find the relative impact of each category on the consumer ratings.
+We are analysing the influence of specific business categories on consumer ratings on Yelp. The dependent variable of this model is the consumer rating of business measured in stars. The ten created dummy variables of the categories will serve as our independent variables. We design our ANOVA model by regressing the dependent variable 'stars' on all these previously created category dummy variables to find the relative impact of each category on the consumer ratings.
 
 ```{r input, include = FALSE}
 prepared_data <- read_csv('../../data/prepared_data.csv')
@@ -101,7 +101,7 @@ These results, however, do not yet show the direction and magnitude of the findi
 eta_squared(analysis_aov, ci=0.95, partial=TRUE)
 ```
 
-The partial eta-squared results show a limit magnitude for all effects. The business category that show to have the highest difference in star rating are Automotive and Home & Travel. However, since these partial eta-squared are only 0.02, these effects are relatively small. The magnitude of the effects of the other business categories are so small, that these effects are negligible.  
+The partial eta-squared results show a limited magnitude for all effects. The business category that show to have the highest difference in star rating are Automotive and Home & Travel. However, since these partial eta-squared are only 0.02, these effects are relatively small. The magnitude of the effects of the other business categories are so small, that these effects are negligible.  
 
 In order to find the actual effects of the business categories we compute a multiple comparisons analysis. Since we already determined that only the Automotive and Home & Travel category have non-negligible results, we will focus on these categories. These are the results of the multiple comparisons analysis for these two business categories:
 
@@ -114,13 +114,12 @@ automotive = emmeans(lm, pairwise ~ `dummy_Automotive`, adjust = 'bonferroni')
 print(hotels_travel)
 print(automotive)
 ```
-
-These results imply that businesses within the category of Hotels & Travel have an average star rating of 3.10, which is 0.42 star lower than the average star rating of business that are not within this category (3.52).
+The results imply that businesses within the category of Hotels & Travel have an average star rating of 3.10, which is 0.42 star lower than the average star rating of business that are not within this category (3.52).
 
 For the automotive category, the result are similar. The average star rating within this category is 3.05, while the average star rating of businesses not in this category is 3.57, this is a difference of 0.52.
 
 ### Visualization
-To visualize this result, we created two boxplots that show for each of these business categories, Hotels & Travel and Automotive, the average star rating of businesses within the category versus business outside of the category:
+To visualize these results, we create two boxplots that show for each of the two business categories, Hotels & Travel and Automotive, the average star rating of businesses within the category versus business outside of the category:
 
 ```{r, echo=FALSE}
 ggplot(prepared_data, aes(x = as.factor(`dummy_Hotels & Travel`), y = stars)) +
