@@ -1,6 +1,6 @@
 # Data Preperation
 
-When running the make file within the DataPreparation folder, the data preperation will automatically run. The makefile follows the following steps for the data preparation of the Yelp dataset:
+When running the makefile within the DataPreparation folder (run ```make``` in the terminal), the data preperation will automatically run. The makefile follows the following steps for the data preparation of the Yelp dataset:
 
 ## 0. Installing Pacakges
 A few R packages are necessary in order to run the data preperation. These packages are:
