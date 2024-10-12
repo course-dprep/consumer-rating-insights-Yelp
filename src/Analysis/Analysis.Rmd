@@ -18,6 +18,7 @@ library(knitr)
 library(ggplot2)
 library(effectsize)
 library(emmeans)
+library(flextable)
 ```
 
 This research examines the influence of specific business categories on the consumer rating of businesses. We created a model to predict the relative impact of specific business categories that are listed on Yelp on consumer ratings on Yelp of these business. This report consist of the following content:
@@ -89,9 +90,11 @@ setDT(prepared_data)
 ### Analysis
 First, we perform the ANOVA analysis. We regress the star rating on the ten generated category dummy variables. The results of this ANOVA regression can be found below:
 
-```{r analysis, echo = FALSE}
+```{r analysis, echo = FALSE, message=FALSE , warning=FALSE}
 analysis_aov <- aov(stars ~ dummy_Restaurants + dummy_Shopping + `dummy_Home Service` + `dummy_Beauty & Spas` + `dummy_Health & Medical` + `dummy_Local Service` + dummy_Automotive + `dummy_Active Life` + `dummy_Hotels & Travel` + `dummy_Arts & Entertainment` , data = prepared_data)
+
 tidy_table = tidy(analysis_aov)
+tidy_table = tidy_table %>% mutate(across(where(is.numeric), ~ round(., 3)))
 flextable(tidy_table)
 ```
 
@@ -99,9 +102,21 @@ These results above imply that businesses within some categories do indeed show 
 
 These results, however, do not yet show the direction and magnitude of the findings. In order to find the magnitude of the results, we perform a partial eta-squared analysis. The following results are obtained:
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 eta_squared = eta_squared(analysis_aov, ci=0.95, partial=TRUE)
-flextable(eta_squared)
+
+eta_squared <- eta_squared %>%
+  mutate(across(where(is.numeric), ~ round(., 3)))
+
+eta_squared <- flextable(eta_squared) %>%
+  set_table_properties(width = 0.9, layout = "autofit") %>%   # Adjust table layout to autofit
+  align(j = 1, align = "left", part = "all") %>%  # Left-align the first column
+  align(j = 2:5, align = "right", part = "all")   # Right-align numeric columns
+
+eta_squared <- eta_squared %>%
+  fontsize(size = 10, part = "all") # Adjust font size if necessary
+
+eta_squared
 ```
 
 The partial eta-squared results show a limited magnitude for all effects. The business category that show to have the highest difference in star rating are Automotive and Home & Travel. However, since these partial eta-squared are only 0.02, these effects are relatively small. The magnitude of the effects of the other business categories are so small, that these effects are negligible.  
@@ -115,10 +130,23 @@ hotels_travel = emmeans(lm, pairwise ~ `dummy_Hotels & Travel`, adjust = 'bonfer
 automotive = emmeans(lm, pairwise ~ `dummy_Automotive`, adjust = 'bonferroni')
 
 hotels_travel = as.data.frame(hotels_travel)
+
+hotels_travel <- hotels_travel %>% mutate(across(where(is.numeric), ~ round(., 3)))
 flextable(hotels_travel)
 
 automotive = as.data.frame(automotive)
-flextable(automotive)
+
+automotive <- automotive %>% mutate(across(where(is.numeric), ~ round(., 3)))
+
+automotive <- flextable(automotive) %>%
+  set_table_properties(width = 0.9, layout = "autofit") %>%   # Adjust table layout to autofit
+  align(j = 1, align = "left", part = "all") %>%  # Left-align the first column
+  align(j = 2:5, align = "right", part = "all")   # Right-align numeric columns
+
+automotive <- automotive %>%
+  fontsize(size = 10, part = "all") # Adjust font size if necessary
+
+automotive
 ```
 The results imply that businesses within the category of Hotels & Travel have an average star rating of 3.10, which is 0.42 star lower than the average star rating of business that are not within this category (3.52).
 
