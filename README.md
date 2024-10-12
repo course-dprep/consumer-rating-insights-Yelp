@@ -91,7 +91,7 @@ readr
 rmarkdown
 tidyr
 ```
-The packages will automatically be installed when running the makefile of the project, but if wanted the packages can also be installed using the ```install.packages``` command.
+The packages can be installed using the ```install.packages``` command, or by running the Install_Pacakages script in the subfolders DataExploration, DataPreperation and Analysis.
 
 ## Running the Code
 
