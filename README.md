@@ -91,7 +91,7 @@ readr
 rmarkdown
 tidyr
 ```
-The packages can be installed using the ```install.packages``` command, or by running the Install_Pacakages script in the subfolders DataExploration, DataPreperation and Analysis.
+The packages can be installed using the ```install.packages``` command, or by running the Install_Pacakages scripts in the subfolders DataExploration, DataPreperation and Analysis.
 
 ## Running the Code
 
