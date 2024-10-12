@@ -90,6 +90,7 @@ knitr
 readr
 rmarkdown
 tidyr
+flextable
 ```
 The packages can be installed using the ```install.packages``` command, or by running the Install_Pacakages scripts in the subfolders DataExploration, DataPreperation and Analysis.
 
