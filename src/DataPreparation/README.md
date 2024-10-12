@@ -12,7 +12,7 @@ dplyr
 tidyr
 gridExtra
 ```
-When the makefile is run, these packages are not automatically installed. To install these packages before running the rest of the makefile, run ````make install``` in the terminal.
+When the makefile is run, these packages are not automatically installed. To install these packages before running the rest of the makefile, run ```make install``` in the terminal.
 
 ## 1. Importing Data
 The data is stored in a public Google Drive folder. The following function will open this Google Drive folder and download the data:
