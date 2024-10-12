@@ -76,7 +76,7 @@ To properly analyse the research question, we split up the category variable int
 - Arts & Entertainment
 
 ## 3. Research Method
-We are going to analyse the influence of specific business categories on consumer ratings on Yelp. The dependent variable will be the consumer rating of business measured in stars. The ten created dummy variables of the categories will serve as our independent variable. Then we will design our ANOVA model by regressing the dependent variable 'stars' on all these previously created category dummy variables to find the relative impact of each category on the consumer ratings.
+We are going to analyse the influence of specific business categories on consumer ratings on Yelp. The dependent variable will be the consumer rating of business measured in stars. The ten created dummy variables of the categories will serve as our independent variables. We will design our ANOVA model by regressing the dependent variable 'stars' on all these previously created category dummy variables to find the relative impact of each category on the consumer ratings.
 
 ```{r input, include = FALSE}
 prepared_data <- read_csv('../../data/prepared_data.csv')
@@ -93,15 +93,7 @@ analysis_aov <- aov(stars ~ dummy_Restaurants + dummy_Shopping + `dummy_Home Ser
 summary(analysis_aov)
 ```
 
-These results above imply that businesses within some categories do indeed show significantly different star ratings than businesses that are not classified in that category. This is true for the following categories:
-- Restaurants
-- Home Service
-- Beauty & Spas
-- Health & Medical
-- Automotive
-- Active Life
-- Hotels & Travel
-- Arts & Entertainment
+These results above imply that businesses within some categories do indeed show significantly different star ratings than businesses that are not classified in that category. This is true for the following categories: Restaurants, Home Service, Beauty & Spas, Health & Medical, Automotive, Active Life, Hotels & Travel and Arts & Entertainment.
 
 These results, however, do not yet show the direction and magnitude of the findings. In order to find the magnitude of the results, we perform a partial eta-squared analysis. The following results are obtained:
 
