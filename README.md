@@ -1,5 +1,5 @@
 # Yelp - What influences consumer ratings?
-This projects aims to examine the influence of specific business categories on the consumer rating of businesses. We created a model to predict the relative impact of specific business categories that are listed on Yelp on consumer ratings on Yelp of these business. 
+This projects aims to examine the influence that specific business categories have on the consumer rating of businesses. We created a model to predict the relative impact that specific business categories, as listed on Yelp, have on the consumer ratings on Yelp of these businesses. 
 
 ![Alt text](https://business.yelp.com/wp-content/uploads/2021/07/yelp-logo_768x512.png)
 
